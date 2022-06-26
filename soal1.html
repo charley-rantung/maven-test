@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aplikasi Pecahan Bilangan</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Maven Hiring Test - Logic</h1>
+      <input type="number" />
+      <button>Generate</button>
+      <div class="output-wrapper">
+        <p>Please input a number</p>
+      </div>
+    </div>
+
+    <script>
+      // Catatan! nilai tempat suatu angka mempunyai berbagai tingkat bergantung dari letak bilangan tersebut
+
+      let userInput = document.querySelector("input");
+      let button = document.querySelector("button");
+      let wrapper = document.getElementsByClassName("output-wrapper")[0];
+      // with arithmetic process
+      const solution1 = () => {
+        // take number that user input
+        let number = userInput.value;
+        if (number.search(0) >= 0) {
+          console.log("please don't use 0 as an input");
+          wrapper.innerHTML = "<p>please don't use 0 as an input</p>";
+          return;
+        }
+
+        // change datatype to array
+        number = number.split("");
+
+        // empty the content of the output-wrapper
+        wrapper.innerHTML = "";
+
+        for (let i = 0; i < number.length; i++) {
+          // take the number in the number order start from begining
+          let temp = number[i];
+          // arithmetic process
+          temp = temp * Math.pow(10, number.length - (i + 1));
+          // display into browser
+          wrapper.insertAdjacentHTML("beforeend", `<p>${temp}</p>`);
+        }
+      };
+
+      // without arithmetic process
+      const solution2 = () => {
+        // take number that user input
+        let number = userInput.value;
+        if (number.search(0) >= 0) {
+          console.log("please don't use 0 as an input");
+          wrapper.innerHTML = "<p>please don't use 0 as an input</p>";
+          return;
+        }
+        // change datatype to array
+        number = number.split("");
+
+        // empty the content of the output-wrapper
+        wrapper.innerHTML = "";
+
+        for (let i = 0; i < number.length; i++) {
+          // take the number in the number order start from begining
+          let temp = number[i];
+
+          // add some suffix number and then display into browser
+          wrapper.insertAdjacentHTML(
+            "beforeend",
+            `<p>${temp.padEnd(number.length - i, "0")}</p>`
+          );
+        }
+      };
+
+      button.addEventListener("click", solution1);
+    </script>
+  </body>
+</html>

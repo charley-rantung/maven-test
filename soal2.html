@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Aplikasi Interval Bar Chart</title>
+    <style>
+      .chart-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: flex-end;
+        min-height: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Maven Hiring Test - Logic</h1>
+    <form>
+      <input type="number" required />
+      <button type="button">Start</button>
+    </form>
+    <div class="chart-wrapper">
+      <p>Chart here</p>
+    </div>
+    <script>
+      let userInput = document.querySelector("input");
+      let button = document.querySelector("button");
+      let wrapper = document.getElementsByClassName("chart-wrapper")[0];
+      let interval;
+
+      console.log(button.classList.contains("on"));
+      const onClick = () => {
+        if (userInput.value.length == 0 || userInput.value == 0) {
+          console.log("masukkan input dengan benar");
+          wrapper.innerHTML = "masukkan input dengan benar";
+          return;
+        }
+
+        button.classList.toggle("on");
+
+        if (button.classList.contains("on")) {
+          console.log("Start Clicked");
+          button.innerHTML = "Stop";
+          userInput.setAttribute("disabled", true);
+          let numOfChart = userInput.value;
+          let randomNumbers = [];
+
+          interval = setInterval(() => {
+            wrapper.innerHTML = "";
+            let temp = [];
+            for (let i = 0; i < numOfChart; i++) {
+              temp.push(Math.floor(Math.random() * 101));
+            }
+            randomNumbers = [...temp];
+            console.log(randomNumbers);
+
+            for (let i = 0; i < randomNumbers.length; i++) {
+              const chartBox = document.createElement("div");
+              chartBox.style.height = `${randomNumbers[i]}px`;
+              chartBox.style.width = "40px";
+              chartBox.style.border = "1px solid rgba(0,0,0,0.2)";
+              chartBox.innerHTML = randomNumbers[i];
+
+              if (randomNumbers[i] > 75) {
+                chartBox.style.background = "#1982c4";
+              } else if (randomNumbers[i] > 50) {
+                chartBox.style.background = "#ff595e";
+              } else if (randomNumbers[i] > 25) {
+                chartBox.style.background = "#ffca3a";
+              } else if (randomNumbers[i] > 0) {
+                chartBox.style.background = "#34ab53  ";
+              } else {
+                chartBox.style.background = "pink";
+              }
+
+              wrapper.appendChild(chartBox);
+            }
+          }, 3000);
+        } else if (!button.classList.contains("on")) {
+          console.log("Stop Clicked");
+          clearInterval(interval);
+          wrapper.innerHTML = "Chart here";
+          button.innerHTML = "Start";
+          userInput.removeAttribute("disabled");
+        }
+      };
+      button.addEventListener("click", onClick);
+    </script>
+  </body>
+</html>
